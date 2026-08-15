@@ -147,7 +147,7 @@ class AutoChangeGroupNamePlugin(Star):
         if not self._is_group_message(event):
             return event.plain_result("请在 QQ 群内使用此命令。")
         if not self._is_group_enabled(str(event.get_group_id())):
-            return event.plain_result("本群尚未启用，请先发送：/enable 改群名")
+            return event.plain_result("本群尚未启用，请先发送：/enable 改群名。请注意单群里不要有多个bot同时开启此插件，避免冲突")
         return None
 
 
