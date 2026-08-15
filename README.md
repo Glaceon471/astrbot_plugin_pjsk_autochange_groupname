@@ -1,6 +1,6 @@
-# astrbot_plugin_pjsk_autochange_groupname
+# pjsk固车群自动改群名插件
 
-AstrBot 插件：适用于pjsk冲榜时自动改群名的操作。
+AstrBot 插件：适用于pjsk冲榜固车群自动改群名的操作。
 在 QQ 群中收到**严格为 5 位 ASCII 数字**的纯文本消息后，将群名改为：
 
 ```text
