@@ -243,7 +243,7 @@ class AutoChangeGroupNamePlugin(Star):
         async with self._state_lock:
             self._original_group_names[str(event.get_group_id())] = group_name
             await self._save_original_names()
-        yield event.plain_result(f"已记录本群原群名：{group_name}")
+        yield event.plain_result(f"已记录本群原群名：{group_name}。请注意群名不要违反平台规则。")
 
 
     @filter.command("自定义匹配")
@@ -267,7 +267,7 @@ class AutoChangeGroupNamePlugin(Star):
         rules.append({"__template_key": "group_rule", "group_id": group_id, "pattern": pattern})
         self.config["custom_match_rules"] = rules
         await self._save_config()
-        yield event.plain_result(f"已设置本群自定义匹配：{pattern}")
+        yield event.plain_result(f"已设置本群自定义匹配：{pattern}。请注意不要违反平台规则。")
 
 
     @filter.command("还原")
