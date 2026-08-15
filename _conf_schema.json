@@ -1,0 +1,48 @@
+{
+  "enabled_group_ids": {
+    "description": "改群名白名单",
+    "type": "list",
+    "items": {
+      "type": "string"
+    },
+    "hint": "列表中的群号会启用自动改群名。/enable 改群名 会自动将当前群加入此列表。",
+    "default": []
+  },
+  "disabled_group_ids": {
+    "description": "改群名黑名单",
+    "type": "list",
+    "items": {
+      "type": "string"
+    },
+    "hint": "黑名单优先于白名单。/disable 改群名 会自动将当前群加入此列表。",
+    "default": []
+  },
+  "default_original_group_name": {
+    "description": "默认原群名",
+    "type": "string",
+    "hint": "当当前群尚未使用 /原群名 设置专属原群名时，使用此值。留空则必须先在群内设置。",
+    "default": ""
+  },
+  "custom_match_rules": {
+    "description": "按群自定义匹配规则",
+    "type": "template_list",
+    "hint": "自定义规则优先于默认“12345 (原群名)”规则；规则必须含且仅含一个 <>，它会替换为五位数字。",
+    "templates": {
+      "group_rule": {
+        "name": "群号与匹配规则",
+        "items": {
+          "group_id": {
+            "description": "QQ群号",
+            "type": "string"
+          },
+          "pattern": {
+            "description": "自定义匹配",
+            "type": "string",
+            "hint": "例如：那<>天的啤酒烧烤起来"
+          }
+        }
+      }
+    },
+    "default": []
+  }
+}

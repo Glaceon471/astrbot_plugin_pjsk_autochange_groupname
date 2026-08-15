@@ -1,14 +1,44 @@
-# astrbot-plugin-helloworld
+# astrbot_plugin_pjsk_autochange_groupname
 
-AstrBot 插件模板 / A template plugin for AstrBot plugin feature
+AstrBot 插件：适用于pjsk冲榜时自动改群名的操作。
+在 QQ 群中收到**严格为 5 位 ASCII 数字**的纯文本消息后，将群名改为：
 
-> [!NOTE]
-> This repo is just a template of [AstrBot](https://github.com/AstrBotDevs/AstrBot) Plugin.
-> 
-> [AstrBot](https://github.com/AstrBotDevs/AstrBot) is an agentic assistant for both personal and group conversations. It can be deployed across dozens of mainstream instant messaging platforms, including QQ, Telegram, Feishu, DingTalk, Slack, LINE, Discord, Matrix, etc. In addition, it provides a reliable and extensible conversational AI infrastructure for individuals, developers, and teams. Whether you need a personal AI companion, an intelligent customer support agent, an automation assistant, or an enterprise knowledge base, AstrBot enables you to quickly build AI applications directly within your existing messaging workflows.
+```text
+12345 (原群名)
+```
 
-# Supports
+例如先设置原群名为 `30虾1车`，有人发送 `12345`，群名会变为 `12345 (30虾1车)`。
 
-- [AstrBot Repo](https://github.com/AstrBotDevs/AstrBot)
-- [AstrBot Plugin Development Docs (Chinese)](https://docs.astrbot.app/dev/star/plugin-new.html)
-- [AstrBot Plugin Development Docs (English)](https://docs.astrbot.app/en/dev/star/plugin-new.html)
+## 前提
+
+- 仅支持 AstrBot 的 **OneBot v11 / aiocqhttp** QQ 适配器（如 NapCat）。
+- 机器人账号必须是该群的群主或管理员。
+
+## 指令
+
+| 指令 | 权限 | 说明 |
+| --- | --- | --- |
+| `/enable 改群名` | Bot 管理员 / 群主 / 群管理员 | 为当前群启用，并加入白名单 |
+| `/disable 改群名` | Bot 管理员 / 群主 / 群管理员 | 为当前群禁用，并加入黑名单 |
+| `/原群名 <群名>` | Bot 管理员 / 群主 / 群管理员 | 为当前群记录专属原群名 |
+| `/自定义匹配 <规则>` | Bot 管理员 / 群主 / 群管理员 | 为当前群设置含 `<>` 的自定义规则 |
+| `/还原` | Bot 管理员 / 群主 / 群管理员 | 将当前群名还原为记录的原群名 |
+
+以上指令也允许 QQ 群主和群管理员使用；除 `/enable 改群名` 外，其余操作均要求当前群已启用。
+
+自定义规则中的 `<>` 会替换成收到的五位数字。例如 `/自定义匹配 那<>天的啤酒烧烤起来` 后，收到 `12345` 会改名为 `那12345天的啤酒烧烤起来`。自定义规则优先于默认规则。
+
+## 可视化配置
+
+AstrBot WebUI 的插件配置面板提供：
+
+- `改群名白名单`：只有列表中的群会触发自动改名；
+- `改群名黑名单`：黑名单优先于白名单；
+- `默认原群名`：没有设置专属原群名的群会使用它；
+- `按群自定义匹配规则`：可在面板中维护“群号—规则”，与命令设置共用同一份数据。
+
+`/原群名` 设置的专属原群名会保存在 AstrBot 的插件数据目录中；它不会被修改配置面板时覆盖。
+
+## 严格匹配规则
+
+只有单条、单一纯文本且恰好匹配 `[0-9]{5}` 的消息才会触发。因此 `12345` 会触发；`123456`、` 12345`、`１２３４５`，以及附带图片或 @ 的消息均不会触发。
