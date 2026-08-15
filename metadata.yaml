@@ -4,3 +4,5 @@ desc: 检测群内纯五位数字消息，并通过 OneBot v11 自动修改 QQ �
 version: v1.0.0
 author: Glaceon471
 repo: "https://github.com/Glaceon471/astrbot_plugin_pjsk_autochange_groupname"
+support_platforms:
+  - aiocqhttp
